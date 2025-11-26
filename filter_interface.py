@@ -13,8 +13,8 @@ st.title("Grantmaker Filter System")
 st.sidebar.header("Select Filters")
 
 # Category filter
-categories = df["General Category"].unique()
-selected_categories = st.sidebar.multiselect("Select one or more categories", categories)
+categories = df["General Category"].dropna().unique()
+selected_categories = st.sidebar.multiselect("Select one or more categories", sorted(categories))
 
 # Amount funded filter
 amount_funded_ranges = {
