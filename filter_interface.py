@@ -19,7 +19,7 @@ categories = df["General Category"].dropna().unique()
 selected_categories = st.sidebar.multiselect("Select one or more categories",
                                              options=sorted(categories),
                                              default=[]) # by default, no category is selected, show all categories
-if (len(selected_categories) == 0):
+if len(selected_categories) == 0:
     category_filter = df['General Category'].isin(categories) | df['General Category'].isna()
 else:
     category_filter = df['General Category'].isin(selected_categories)
@@ -42,12 +42,15 @@ amount_funded_ranges = {
 }
 selected_amount_funded_range = st.sidebar.selectbox("Select amount funded range", list(amount_funded_ranges.keys()))
 min_amount_funded, max_amount_funded = amount_funded_ranges[selected_amount_funded_range]
+amount_funded_filter = df['Amount Funded'].between(min_amount_funded, max_amount_funded)
+if selected_amount_funded_range == "No selection":
+    amount_funded_filter = amount_funded_filter | df['Amount Funded'].isna()
 
 # Total giving filter
 total_giving_ranges = {
     "No selection": (0, df['Total Giving'].max()),
     "> 9,000,000": (9000000, df['Total Giving'].max()),
-    "8,000,000 - 9,000,000": (9000000, 8999999),
+    "8,000,000 - 9,000,000": (8000000, 8999999),
     "7,000,000 - 8,000,000": (7000000, 7999999),
     "6,000,000 - 7,000,000": (6000000, 6999999),
     "5,000,000 - 6,000,000": (5000000, 5999999),
@@ -60,6 +63,9 @@ total_giving_ranges = {
 }
 selected_total_giving_range = st.sidebar.selectbox("Select total giving range", list(total_giving_ranges.keys()))
 min_total_giving, max_total_giving = total_giving_ranges[selected_total_giving_range]
+total_giving_filter = df['Total Giving'].between(min_total_giving, max_total_giving)
+if selected_total_giving_range == "No selection":
+    total_giving_filter = total_giving_filter | df['Total Giving'].isna()
 
 # Grant count filter
 grant_count_ranges = {
@@ -80,12 +86,17 @@ grant_count_ranges = {
 }
 selected_grant_count_range = st.sidebar.selectbox("Select grant count range", list(grant_count_ranges.keys()))
 min_grant_count, max_grant_count = grant_count_ranges[selected_grant_count_range]
+grant_count_filter = df['Grant Count'].between(min_grant_count, max_grant_count)
+if selected_grant_count_range == "No selection":
+    grant_count_filter = grant_count_filter | df['Grant Count'].isna()
+
 
 filtered_df = df[
     category_filter &
-    (df["Grant Count"] >= min_grant_count) & (df["Grant Count"] <= max_grant_count) &
-    (df["Amount Funded"] >= min_amount_funded) & (df["Amount Funded"] <= max_amount_funded) &
-    (df["Total Giving"] >= min_total_giving) & (df["Total Giving"] <= max_total_giving)]
+    amount_funded_filter &
+    total_giving_filter &
+    grant_count_filter
+]
 
 st.write(f"{len(filtered_df)} grantmakers found")
 st.write(":gray[Click the column name to sort by column]")
