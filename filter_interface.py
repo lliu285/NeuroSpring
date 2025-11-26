@@ -35,7 +35,8 @@ min_amount_funded, max_amount_funded = amount_funded_ranges[selected_amount_fund
 
 # Total giving filter
 total_giving_ranges = {
-    "> 8,000,000": (8000000, df['Total Giving'].max()),
+    "> 9,000,000": (9000000, df['Total Giving'].max()),
+    "8,000,000 - 9,000,000": (9000000, 8999999),
     "7,000,000 - 8,000,000": (7000000, 7999999),
     "6,000,000 - 7,000,000": (6000000, 6999999),
     "5,000,000 - 6,000,000": (5000000, 5999999),
