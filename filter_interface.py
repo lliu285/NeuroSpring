@@ -18,9 +18,9 @@ st.sidebar.header("Select Filters")
 categories = df["General Category"].dropna().unique()
 selected_categories = st.sidebar.multiselect("Select one or more categories", options=sorted(categories), default=[])
 if (len(selected_categories) == 0):
-    category_filter = df['Category'].isin(categories) | df['Category'].isna()
+    category_filter = df['General Category'].isin(categories) | df['General Category'].isna()
 else:
-    category_filter = df['Category'].isin(selected_categories)
+    category_filter = df['General Category'].isin(selected_categories)
 
 # Amount funded filter
 amount_funded_ranges = {
