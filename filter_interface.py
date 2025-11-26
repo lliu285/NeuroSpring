@@ -38,7 +38,7 @@ amount_funded_ranges = {
     "2,000,000 - 3,000,000": (2000000, 2999999),
     "1,000,000 - 2,000,000": (1000000, 1999999),
     "500,000 - 1,000,000": (500000, 999999),
-    "0 - 500,000": (0, 499999)
+    "< 500,000": (0, 499999)
 }
 selected_amount_funded_range = st.sidebar.selectbox("Select amount funded range", list(amount_funded_ranges.keys()))
 min_amount_funded, max_amount_funded = amount_funded_ranges[selected_amount_funded_range]
@@ -56,7 +56,7 @@ total_giving_ranges = {
     "2,000,000 - 3,000,000": (2000000, 2999999),
     "1,000,000 - 2,000,000": (1000000, 1999999),
     "500,000 - 1,000,000": (500000, 999999),
-    "0 - 500,000": (0, 499999)
+    "< 500,000": (0, 499999)
 }
 selected_total_giving_range = st.sidebar.selectbox("Select total giving range", list(total_giving_ranges.keys()))
 min_total_giving, max_total_giving = total_giving_ranges[selected_total_giving_range]
@@ -76,7 +76,7 @@ grant_count_ranges = {
     "30 - 40": (30, 39),
     "20 - 30": (20, 29),
     "10 - 20": (10, 19),
-    "0 - 10": (0, 9)
+    "< 10": (0, 9)
 }
 selected_grant_count_range = st.sidebar.selectbox("Select grant count range", list(grant_count_ranges.keys()))
 min_grant_count, max_grant_count = grant_count_ranges[selected_grant_count_range]
