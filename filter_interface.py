@@ -80,5 +80,9 @@ filtered_df = df[
     (df["Total Giving"] >= min_total_giving) & (df["Total Giving"] <= max_total_giving)]
 
 st.write(f"{len(filtered_df)} grantmakers found")
-st.dataframe(filtered_df)
+st.dataframe(filtered_df,
+             hide_index=True,
+             column_config={"Grantmaker Name": st.column_config.TextColumn(
+                        "Grantmaker Name",
+                            pinned="left")})
 
