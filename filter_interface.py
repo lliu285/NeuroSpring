@@ -16,7 +16,11 @@ st.sidebar.header("Select Filters")
 
 # Category filter
 categories = df["General Category"].dropna().unique()
-selected_categories = st.sidebar.multiselect("Select one or more categories", sorted(categories))
+selected_categories = st.sidebar.multiselect("Select one or more categories", options=sorted(categories), default=[])
+if (len(selected_categories) == 0):
+    category_filter = df['Category'].isin(categories) | df['Category'].isna()
+else:
+    category_filter = df['Category'].isin(selected_categories)
 
 # Amount funded filter
 amount_funded_ranges = {
@@ -74,7 +78,7 @@ selected_grant_count_range = st.sidebar.selectbox("Select grant count range", li
 min_grant_count, max_grant_count = grant_count_ranges[selected_grant_count_range]
 
 filtered_df = df[
-    (df["General Category"].isin(selected_categories)) &
+    category_filter &
     (df["Grant Count"] >= min_grant_count) & (df["Grant Count"] <= max_grant_count) &
     (df["Amount Funded"] >= min_amount_funded) & (df["Amount Funded"] <= max_amount_funded) &
     (df["Total Giving"] >= min_total_giving) & (df["Total Giving"] <= max_total_giving)]
