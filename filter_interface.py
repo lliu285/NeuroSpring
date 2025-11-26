@@ -14,10 +14,12 @@ st.sidebar.header("Select Filters")
 
 # Category filter
 categories = df["General Category"].unique()
-selected_categories = st.sidebar.multiselect("Select one or more categories", categories)
+category_options = ["No selection"] + list(categories)
+selected_categories = st.sidebar.multiselect("Select one or more categories", category_options)
 
 # Amount funded filter
 amount_funded_ranges = {
+    "No selection": (0, df['Amount Funded'].max()),
     "> 10,000,000": (10000000, df['Amount Funded'].max()),
     "9,000,000 - 10,000,000": (9000000, 9999999),
     "8,000,000 - 9,000,000": (8000000, 8999999),
@@ -35,6 +37,7 @@ min_amount_funded, max_amount_funded = amount_funded_ranges[selected_amount_fund
 
 # Total giving filter
 total_giving_ranges = {
+    "No selection": (0, df['Total Giving'].max()),
     "> 9,000,000": (9000000, df['Total Giving'].max()),
     "8,000,000 - 9,000,000": (9000000, 8999999),
     "7,000,000 - 8,000,000": (7000000, 7999999),
@@ -51,6 +54,7 @@ min_total_giving, max_total_giving = total_giving_ranges[selected_total_giving_r
 
 # Grant count filter
 grant_count_ranges = {
+    "No selection": (0, df['Grant Count'].max()),
     "> 120": (120, df['Grant Count'].max()),
     "110 - 120": (110, 119),
     "100 - 110": (100, 109),
