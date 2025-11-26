@@ -7,7 +7,9 @@ streamlit run filter_interface.py
 import streamlit as st
 import pandas as pd
 
-df = pd.read_csv("neurospring_donors_with_categories.csv")
+df_original = pd.read_csv("neurospring_donors_with_categories.csv")
+df = df_original.drop(["Street Address 2", "RFPs", "General NTEE"], axis=1)
+df = df.rename(columns = {'Category': 'Specific Category'})
 
 st.title("Grantmaker Filter System")
 st.sidebar.header("Select Filters")
