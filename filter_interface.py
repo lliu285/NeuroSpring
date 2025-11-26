@@ -37,7 +37,7 @@ min_grant_count, max_grant_count = grant_count_ranges[selected_grant_count_range
 
 # Amount funded filter
 amount_funded_ranges = {
-    "> 10,000,000": (10000000, df['']),
+    "> 10,000,000": (10000000, df['Amount Funded'].max()),
     "9,000,000 - 10,000,000": (9000000, 9999999),
     "8,000,000 - 9,000,000": (8000000, 8999999),
     "7,000,000 - 8,000,000": (7000000, 7999999),
@@ -59,3 +59,4 @@ filtered_df = df[
 
 st.write(f"{len(filtered_df)} grantmakers found")
 st.dataframe(filtered_df)
+
