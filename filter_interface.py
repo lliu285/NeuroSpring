@@ -14,10 +14,7 @@ st.sidebar.header("Select Filters")
 
 # Category filter
 categories = df["General Category"].unique()
-category_options = ["No selection"] + list(categories)
-selected_categories = st.sidebar.multiselect("Select one or more categories",
-                                             options=categories,
-                                             default=categories)
+selected_categories = st.sidebar.multiselect("Select one or more categories", categories)
 
 # Amount funded filter
 amount_funded_ranges = {
