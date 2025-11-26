@@ -16,7 +16,9 @@ st.sidebar.header("Select Filters")
 
 # Category filter
 categories = df["General Category"].dropna().unique()
-selected_categories = st.sidebar.multiselect("Select one or more categories", options=sorted(categories), default=[])
+selected_categories = st.sidebar.multiselect("Select one or more categories",
+                                             options=sorted(categories),
+                                             default=[]) # by default, no category is selected, show all categories
 if (len(selected_categories) == 0):
     category_filter = df['General Category'].isin(categories) | df['General Category'].isna()
 else:
@@ -84,6 +86,7 @@ filtered_df = df[
     (df["Total Giving"] >= min_total_giving) & (df["Total Giving"] <= max_total_giving)]
 
 st.write(f"{len(filtered_df)} grantmakers found")
+st.write(":gray[Click the column name to sort by column]")
 st.dataframe(filtered_df,
              hide_index=True,
              column_config={"Grantmaker Name": st.column_config.TextColumn(
